@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="./img/mLogo.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Lin MiaoMiao | 林妙妙</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        .wrap {
+        
+        }
+        .section {
+            height: 100vh;
+            /*border-bottom: 2px solid #ccc;*/
+        }
+        .bg-light-black {
+            background-color: #2b323a;
+        }
+        .lm-center {
+            justify-content: center;
+        }
+        .lm-circle {
+            color: #f05864;
+            font-size: 1rem;
+        }
+        /*首页*/
+        .lm-home {
+            background-color: #20272f;
+            display: flex;
+            flex-direction: column;
+        }
+            /*导航*/
+            .lm-home nav{
+                flex: 0 0 auto;
+            }
+                .lm-home nav a{
+                    color: #8e959d;
+                }
+                .lm-home nav a:hover{
+                    color: #f05864;
+                }
+                .lm-nav-hr {
+                    line-height: 2.5;
+                    color: #555;
+                }
+            .lm-home-about {
+                flex: 1 0 auto;
+                color: #8e959d;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                padding: 0 1rem;
+            }
+                .lm-home-about h1 {
+                    color: #dde2e5;
+                    padding: 1.5rem 3.5rem;
+                    border-bottom: 2px solid #8e959d;
+                    display: inline-block;
+                    font-size: 2.5rem;
+                    margin-bottom: .5rem;
+                }
+                    .lm-home-about h1 i {
+                        margin-left: .5rem;
+                    }
+                .to-back {
+
+                }
+                    .to-back a {
+                        color: #fff;
+                    }
+                    .to-back a:hover {
+                        color: #f05864;
+                    }
+            .lm-home-bottom {
+                padding: 1rem;
+                flex: 0 0 auto;
+            }
+                .lm-home-bottom a{
+                    color: #fff;
+                    font-size: 24px;
+                }
+                .lm-home-bottom a:hover{
+                    color: #f05864;
+                }
+                .lm-home-bottom a > i {
+                    font-size: 42px;
+                }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <section class="section lm-home">
+            <header>
+                <nav class="navbar navbar-expand-lg bg-light-black">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><i class="fa fa-navicon fa-lg"></i></span>
+                  </button>
+                  <div class="collapse navbar-collapse lm-nav-center lm-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                      </li>
+                      <span class="lm-nav-hr">|</span>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Skill</a>
+                      </li>
+                      <span class="lm-nav-hr">|</span>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Works</a>
+                      </li>
+                      <span class="lm-nav-hr">|</span>
+                      <li class="nav-item">
+                        <a class="nav-link " href="#">Contact</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+            </header>
+            <section class="lm-home-about lm-center">
+                <div>
+                    <h1><span>Miao</span><i class="fa fa-camera-retro fa-lg"></i><i class="fa fa-circle lm-circle"></i></h1>
+                    <p>Hello，我的名字叫林妙妙，2015年开始接触前端，2016年选择了网站开发专业，从此就踏上了我的前端之路<i class="fa fa-paper-plane"></i></p>
+                </div>
+                <div class="to-back"><a href="#"><i class="fa fa-angle-double-down fa-5x"></i></a></div>
+            </section>
+            <div class="navbar lm-center lm-home-bottom bg-light-black">
+                <a class="nav-link" href="https://github.com/miaomiaolin"><i class="fa fa-github"></i></a>
+                <a class="nav-link" href="#">douban</a>
+                <a class="nav-link" href="https://www.qdfuns.com/u/49449.html">QDFuns</a>
+                <a class="nav-link" href="https://blog.csdn.net/qq_41359606">CDSN</a>
+            </div>
+        </section>
+        <!-- <section class="section">
+            
+        </section> -->
+    </div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</body>
+</html>
