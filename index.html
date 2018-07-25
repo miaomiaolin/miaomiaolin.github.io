@@ -137,8 +137,49 @@
         <!-- <section class="section">
             
         </section> -->
+        <!-- <section>
+            <h2>contact</h2>
+            <p>jdskfjsdkjfdksjfkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjffcxnncxnvxc,nv,mnkldfjsljfsldjfsdkjfsklfj</p>
+            <div>
+                  <label for="n">{{$t("sendmail.name")}}</label>
+                  <input type="text" name="name" :placeholder="姓名" id="n">
+              </div>
+              <div>
+                  <label for="e">{{$t("sendmail.mail")}}</label>
+                  <input type="text" name="email" :placeholder="邮箱" id="e">
+              </div>
+              <div>
+                  <label for="p">{{$t("sendmail.phone")}}</label>
+                  <input type="text" name="number" :placeholder="$t('sendmail.phone')" id="p">
+              </div>
+              <div>
+                  <label for="m">{{$t("sendmail.message")}}</label>
+                  <textarea name="message" :placeholder="$t('sendmail.message')" id="m"></textarea>
+              </div>
+              <el-button type="primary" @click="sendEmail" class="mail-btn">{{$t("sendmail.send")}}</el-button>
+              <a href="mailto" id="send"></a>
+            </div>
+        </section> -->
     </div>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('.mail-box').on('input propertychange', ['input', 'textarea'], function (e) {
+      $(e.target.parentNode).toggleClass('in', !!$(e.target).val())
+    })
+    function sendEmail () {
+      var name = $("[name='name']").val()
+      var email = $("[name='email']").val()
+      var number = $("[name='number']").val()
+      var message = $("[name='message']").val()
+      var body = language('sendmail.js.name') + '%20:%20' + name + '%0a%0d' +
+          language('sendmail.js.mail') + '%20:%20' + email + '%0a%0d' +
+          language('sendmail.js.phone') + '%20:%20' + number + '%0a%0d' +
+          language('sendmail.js.message') + '%20:%20' + '%0a' + message + '%0a%0d'
+      if (name === '' || email === '' || number === '' || message === '') { alert(language('sendmail.js.rule')); return }
+      $('#send').attr('href', 'mailto:fanhan@fanhantech.com?subject=' + language('sendmail.js.title') + '（' + name + '）&body=' + body)
+      document.getElementById('send').click()
+    }
+</script>
 </body>
 </html>
