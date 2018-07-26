@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>画布播放视频</title>
+  <style>
+    .cv-warp {
+      display: flex;
+    }
+    .cv-warp .note {
+      margin-left: 5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cv-warp">
+      <div>
+          <video id="video1" width="270" controls  src="voide001.mp4" style="display:none"></video>
+          <canvas id="myCanvas" width="550" height="320"></canvas>
+          <div>
+              <input type="button" value="播放" onclick="vPlay()">
+              <input type="button" value="暂停" onclick="vPause()">
+          </div>
+      </div>
+      <div class="note">
+        <h3>本次案例涉及的知识点</h3>
+        <h4>voide标签属性：controls（向用户显示控件）</h4>
+        <h4>Video 对象属性</h4>
+        <p>currentTime 设置或返回视频中的当前播放位置（以秒计）。</p>
+        <p>ended 返回视频的播放是否已结束。</p>
+        <p>paused 设置或返回视频是否暂停。</p>
+        <h4>Video 对象方法</h4>
+        <p>play()	开始播放视频。</p>
+        <p>pause()	暂停当前播放的视频。</p>
+        <h4>在画布上定位图像，并规定图像的宽度和高度</h4>
+        <h4>context.drawImage(img,x,y,width,height)</h4>
+        <p>img	规定要使用的图像、画布或视频。</p>
+        <p>x	在画布上放置图像的 x 坐标位置。</p>
+        <p>y	在画布上放置图像的 y 坐标位置。</p>
+        <p>width	可选。要使用的图像的宽度。（伸展或缩小图像）</p>
+        <p>height	可选。要使用的图像的高度。（伸展或缩小图像）</p>
+      </div>
+  </div>
+  <script>
+    var v = document.getElementById("video1");
+    var c = document.getElementById("myCanvas");
+    ctx = c.getContext('2d');
+    //每40毫秒画一次图
+    v.addEventListener('play', function () {
+      var i = window.setInterval(function () {
+        ctx.drawImage(v, 0, 0, 550, 320);
+        //打印当前视频的播放时间
+        console.log(v.currentTime);
+        //当视频结束或者暂停的时候去掉循环
+        if (v.ended || v.paused) {
+          clearInterval(i)
+        }
+      }, 40);
+    });
+    function vPlay () {
+      v.play()
+    }
+    function vPause () {
+      v.pause()
+    }
+  </script>
+</body>
+
+</html>
