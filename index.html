@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="./img/mLogo.png">
@@ -9,126 +10,201 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-        .wrap {
-        
-        }
+        .wrap {}
+
         .section {
             height: 100vh;
             /*border-bottom: 2px solid #ccc;*/
         }
+
         .bg-light-black {
             background-color: #2b323a;
         }
+
         .lm-center {
             justify-content: center;
         }
+
         .lm-circle {
             color: #f05864;
             font-size: 1rem;
         }
+
         /*首页*/
+
         .lm-home {
             background-color: #20272f;
             display: flex;
             flex-direction: column;
         }
-            /*导航*/
-            .lm-home nav{
-                flex: 0 0 auto;
-            }
-                .lm-home nav a{
-                    color: #8e959d;
-                }
-                .lm-home nav a:hover{
-                    color: #f05864;
-                }
-                .lm-nav-hr {
-                    line-height: 2.5;
-                    color: #555;
-                }
-            .lm-home-about {
-                flex: 1 0 auto;
-                color: #8e959d;
-                text-align: center;
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-                padding: 0 1rem;
-            }
-                .lm-home-about h1 {
-                    color: #dde2e5;
-                    padding: 1.5rem 3.5rem;
-                    border-bottom: 2px solid #8e959d;
-                    display: inline-block;
-                    font-size: 2.5rem;
-                    margin-bottom: .5rem;
-                }
-                    .lm-home-about h1 i {
-                        margin-left: .5rem;
-                    }
-                .to-back {
 
-                }
-                    .to-back a {
-                        color: #fff;
-                    }
-                    .to-back a:hover {
-                        color: #f05864;
-                    }
-            .lm-home-bottom {
-                padding: 1rem;
-                flex: 0 0 auto;
-            }
-                .lm-home-bottom a{
-                    color: #fff;
-                    font-size: 24px;
-                }
-                .lm-home-bottom a:hover{
-                    color: #f05864;
-                }
-                .lm-home-bottom a > i {
-                    font-size: 42px;
-                }
+        /*导航*/
+
+        .lm-home nav {
+            flex: 0 0 auto;
+        }
+
+        .lm-home nav a {
+            color: #8e959d;
+        }
+
+        .lm-home nav a:hover {
+            color: #f05864;
+        }
+
+        .lm-nav-hr {
+            line-height: 2.5;
+            color: #555;
+        }
+
+        .lm-home-about {
+            flex: 1 0 auto;
+            color: #8e959d;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 0 1rem;
+        }
+
+        .lm-home-about h1 {
+            color: #dde2e5;
+            padding: 1.5rem 3.5rem;
+            border-bottom: 2px solid #8e959d;
+            display: inline-block;
+            font-size: 2.5rem;
+            margin-bottom: .5rem;
+        }
+
+        .lm-home-about h1 i {
+            margin-left: .5rem;
+        }
+
+        .to-back {}
+
+        .to-back a {
+            color: #fff;
+        }
+
+        .to-back a:hover {
+            color: #f05864;
+        }
+
+        .lm-home-bottom {
+            padding: 1rem;
+            flex: 0 0 auto;
+        }
+
+        .lm-home-bottom a {
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .lm-home-bottom a:hover {
+            color: #f05864;
+        }
+
+        .lm-home-bottom a>i {
+            font-size: 42px;
+        }
+        /* 发送 */
+        .mail-box label{
+        position: relative;
+        left: 0;
+        top: 32px;
+        opacity: 0;
+        font-size: 14px;
+        color: #f05864;
+        margin-bottom: 0rem;
+        -webkit-transition: top .3s ,opacity .3s;
+        line-height: 1;
+        }
+        .mail-box input,
+        .mail-box textarea{
+        padding-bottom: 25px;
+        width: 100%;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #31343a;
+        background-color: transparent;
+        font-size: 14px;
+        }
+        .mail-box textarea{
+        resize: none;
+        }
+        .mail-box .in label {
+            top: 5px;
+            opacity: 1;
+        }
+        .mail-box .in input {
+        padding-bottom: 10px;
+        padding-top: 5px;
+        margin-top: 5px;
+        }
+        /*  */
+        .contact-title {
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
     <div class="wrap">
         <section class="section lm-home">
             <header>
                 <nav class="navbar navbar-expand-lg bg-light-black">
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><i class="fa fa-navicon fa-lg"></i></span>
-                  </button>
-                  <div class="collapse navbar-collapse lm-nav-center lm-center" id="navbarNav">
-                    <ul class="navbar-nav">
-                      <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                      </li>
-                      <span class="lm-nav-hr">|</span>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Skill</a>
-                      </li>
-                      <span class="lm-nav-hr">|</span>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Works</a>
-                      </li>
-                      <span class="lm-nav-hr">|</span>
-                      <li class="nav-item">
-                        <a class="nav-link " href="#">Contact</a>
-                      </li>
-                    </ul>
-                  </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <i class="fa fa-navicon fa-lg"></i>
+                        </span>
+                    </button>
+                    <div class="collapse navbar-collapse lm-nav-center lm-center" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            <span class="lm-nav-hr">|</span>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Skill</a>
+                            </li>
+                            <span class="lm-nav-hr">|</span>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Works</a>
+                            </li>
+                            <span class="lm-nav-hr">|</span>
+                            <li class="nav-item">
+                                <a class="nav-link " href="#">Contact</a>
+                            </li>
+                            <span class="lm-nav-hr">|</span>
+                            <li class="nav-item">
+                                <a class="nav-link " target="_blank" href="https://miaomiaolin.github.io/myCV.html">About</a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             </header>
             <section class="lm-home-about lm-center">
                 <div>
-                    <h1><span>Miao</span><i class="fa fa-camera-retro fa-lg"></i><i class="fa fa-circle lm-circle"></i></h1>
-                    <p>Hello，我的名字叫林妙妙，2015年开始接触前端，2016年选择了网站开发专业，从此就踏上了我的前端之路<i class="fa fa-paper-plane"></i></p>
+                    <h1>
+                        <span>Miao</span>
+                        <i class="fa fa-camera-retro fa-lg"></i>
+                        <i class="fa fa-circle lm-circle"></i>
+                    </h1>
+                    <p>Hello，我的名字叫林妙妙，2015年开始接触前端，2016年选择了网站开发专业，从此就踏上了我的前端之路
+                        <i class="fa fa-paper-plane"></i>
+                    </p>
                 </div>
-                <div class="to-back"><a href="#"><i class="fa fa-angle-double-down fa-5x"></i></a></div>
+                <div class="to-back">
+                    <a href="#">
+                        <i class="fa fa-angle-double-down fa-5x"></i>
+                    </a>
+                </div>
             </section>
             <div class="navbar lm-center lm-home-bottom bg-light-black">
-                <a class="nav-link" href="https://github.com/miaomiaolin"><i class="fa fa-github"></i></a>
+                <a class="nav-link" href="https://github.com/miaomiaolin">
+                    <i class="fa fa-github"></i>
+                </a>
                 <a class="nav-link" href="#">douban</a>
                 <a class="nav-link" href="https://www.qdfuns.com/u/49449.html">QDFuns</a>
                 <a class="nav-link" href="https://blog.csdn.net/qq_41359606">CDSN</a>
@@ -137,49 +213,60 @@
         <!-- <section class="section">
             
         </section> -->
-        <!-- <section>
-            <h2>contact</h2>
-            <p>jdskfjsdkjfdksjfkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjffcxnncxnvxc,nv,mnkldfjsljfsldjfsdkjfsklfj</p>
-            <div>
-                  <label for="n">{{$t("sendmail.name")}}</label>
-                  <input type="text" name="name" :placeholder="姓名" id="n">
-              </div>
-              <div>
-                  <label for="e">{{$t("sendmail.mail")}}</label>
-                  <input type="text" name="email" :placeholder="邮箱" id="e">
-              </div>
-              <div>
-                  <label for="p">{{$t("sendmail.phone")}}</label>
-                  <input type="text" name="number" :placeholder="$t('sendmail.phone')" id="p">
-              </div>
-              <div>
-                  <label for="m">{{$t("sendmail.message")}}</label>
-                  <textarea name="message" :placeholder="$t('sendmail.message')" id="m"></textarea>
-              </div>
-              <el-button type="primary" @click="sendEmail" class="mail-btn">{{$t("sendmail.send")}}</el-button>
-              <a href="mailto" id="send"></a>
+        <!-- <section class="lm-contact">
+            <div class="container">
+                <div class="contact-title">
+                    <h2>contact</h2>
+                    <p>jdskfjsdkjfdksjfkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjffcxnncxnvxc,nv,mnkldfjsljfsldjfsdkjfsklfj</p>
+                </div>
+                <div class="mail-box">
+                    <div>
+                        <label for="n">姓名</label>
+                        <input type="text" name="name" placeholder="姓名" id="n">
+                    </div>
+                    <div>
+                        <label for="e">邮箱</label>
+                        <input type="text" name="email" placeholder="邮箱" id="e">
+                    </div>
+                    <div>
+                        <label for="p">手机号</label>
+                        <input type="text" name="number" placeholder="手机号" id="p">
+                    </div>
+                    <div>
+                        <label for="m">内容</label>
+                        <textarea name="message" placeholder="内容" id="m"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-dark" class="mail-btn" onclick="sendEmail()">Send Message</button>
+                    <a href="mailto" id="send"></a>
+                </div>
             </div>
-        </section> -->
+            
+    </section> -->
     </div>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $('.mail-box').on('input propertychange', ['input', 'textarea'], function (e) {
-      $(e.target.parentNode).toggleClass('in', !!$(e.target).val())
-    })
-    function sendEmail () {
-      var name = $("[name='name']").val()
-      var email = $("[name='email']").val()
-      var number = $("[name='number']").val()
-      var message = $("[name='message']").val()
-      var body = language('sendmail.js.name') + '%20:%20' + name + '%0a%0d' +
-          language('sendmail.js.mail') + '%20:%20' + email + '%0a%0d' +
-          language('sendmail.js.phone') + '%20:%20' + number + '%0a%0d' +
-          language('sendmail.js.message') + '%20:%20' + '%0a' + message + '%0a%0d'
-      if (name === '' || email === '' || number === '' || message === '') { alert(language('sendmail.js.rule')); return }
-      $('#send').attr('href', 'mailto:fanhan@fanhantech.com?subject=' + language('sendmail.js.title') + '（' + name + '）&body=' + body)
-      document.getElementById('send').click()
-    }
-</script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('.mail-box').on('input propertychange', ['input', 'textarea'], function (e) {
+            $(e.target.parentNode).toggleClass('in', !!$(e.target).val())
+        })
+
+        function sendEmail() {
+            var name = $("[name='name']").val()
+            var email = $("[name='email']").val()
+            var number = $("[name='number']").val()
+            var message = $("[name='message']").val()
+            var body = '姓名' + '%20:%20' + name + '%0a%0d' +
+                '邮箱' + '%20:%20' + email + '%0a%0d' +
+                '手机号' + '%20:%20' + number + '%0a%0d' +
+                '内容' + '%20:%20' + '%0a' + message + '%0a%0d'
+            if (name === '' || email === '' || number === '' || message === '') {
+                alert('请将信息填写完整');
+                return
+            }
+            $('#send').attr('href', 'mailto:237070612@qq.com?subject=' + '姓名' + '（' + name + '）&body=' + body)
+            document.getElementById('send').click()
+        }
+    </script>
 </body>
+
 </html>

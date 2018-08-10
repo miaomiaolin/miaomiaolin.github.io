@@ -26,3 +26,12 @@ jquery（版本3.3.1）
 ###### index
 
 第一版面Home已完成
+
+###### view（案例）
+
+1. [可拖拽div](https://github.com/miaomiaolin/miaomiaolin.github.io/blob/master/view/demo.html)
+2. [英文字母大小写转换](https://github.com/miaomiaolin/miaomiaolin.github.io/blob/master/view/changeABC.html)
+3. [canvas画布播放视频]()
+4. [recorder.js录音功能]()
+
+
