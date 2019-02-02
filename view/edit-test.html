@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>协议输出工具</title>
+  <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
+  <style>
+    .tool-box {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    .card {
+      position: relative;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 1px solid rgba(0,0,0,.125);
+      border-radius: .25rem;
+  }
+  .card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+  }
+  .card-body > h3 {
+    padding-bottom: .5rem;
+  }
+  hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+  }
+  .btn-action {
+    padding-top: 1rem;
+  }
+  </style>
+  <script type="text/javascript" src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+  <script type="text/javascript">
+  tinymce.init({
+    selector: '#myTextarea',
+    theme: 'modern',
+    height: 400,
+    plugins: [
+      'advlist autolink link lists charmap print preview hr',
+      'searchreplace wordcount visualblocks visualchars insertdatetime',
+      'save contextmenu directionality emoticons paste textcolor'
+    ],
+    style_formats: [
+      { title: '文字标题', block: 'h3', styles:{textAlign: 'center'}},
+      { title: '段落', block: 'p'},
+      { title: '小标题', block: 'h4'},
+      { title: '排序句子', inline: 'span', styles: { color: '#000' }}
+    ],
+    toolbar: 'insertfile undo redo | styleselect | bold italic hr | alignleft aligncenter alignright | bullist numlist outdent indent  | print preview fullpage | forecolor link'
+  });
+  </script>
+</head>
+
+<body>
+  <div class="container tool-box">
+    <div class="card">
+      <div class="card-body">
+        <div style="display: flex; padding-bottom: .5rem;">
+          <h3>协议输出工具</h3>
+          <div style="display: flex; width:40%;">
+            <select class="form-control" id="user" style="margin-left: 1rem">
+              <option value="Annotator">执行方</option>
+              <option value="Issuer">发布方</option>
+            </select>
+            <select class="form-control" id="lang" style="margin-left: 1rem">
+              <option value="cn">中文</option>
+              <option value="en">英文</option>
+            </select>
+          </div>
+        </div>
+        <textarea id="myTextarea"></textarea>
+        <div class="btn-action">
+          <button type="button" class="btn btn-primary" onclick="print()">显示效果</button>
+          <button type="button" class="btn btn-secondary" id="downHtml">发布协议</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="show"></div>
+  <script>
+    function print () {
+      let text = tinymce.get('myTextarea').getContent()
+      let result =`<div class="container agreement">
+          <div class="card">
+            <div class="card-body">
+              ${text}
+            </div>
+          </div>
+        </div>`
+      $('#show').html(result)
+    }
+    
+    var eleButton = document.querySelector('#downHtml');
+    
+    var funDownload = function (filename) {
+      let con = tinymce.get('myTextarea').getContent();
+      let content = `<!doctype html>
+        <html>
+        <head>
+        <meta charset="utf-8">
+        <title>泛函数据平台</title>
+        <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
+        <style>
+          .agreement {
+            padding-top: 4.5rem;
+            padding-bottom: 2rem;
+          }
+          .card {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .25rem;
+        }
+        .card-body {
+          -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+          padding: 1.25rem;
+        }
+        hr {
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          border: 0;
+          border-top: 1px solid rgba(0,0,0,.1);
+        }
+        </style>
+        </head>
+        <body>
+        <div class="container agreement">
+          <div class="card">
+            <div class="card-body">
+              ${con}
+            </div>
+          </div>
+        </div>
+        </body>
+        </html>`
+        var eleLink = document.createElement('a');
+        eleLink.download = filename;
+        eleLink.style.display = 'none';
+        // 字符内容转变成blob地址
+        var blob = new Blob([content]);
+        eleLink.href = URL.createObjectURL(blob);
+        // 触发点击
+        document.body.appendChild(eleLink);
+        eleLink.click();
+        // 然后移除
+        document.body.removeChild(eleLink);
+    };
+
+    if ('download' in document.createElement('a')) {
+      // 作为test.html文件下载
+      eleButton.addEventListener('click', function () {
+        let user = $('#user').val()
+        let lang = $('#lang').val()	
+        funDownload(`agreement-${user}-${lang}.html`);	
+      });
+    } else {
+      eleButton.onclick = function () {
+        alert('浏览器不支持');	
+      };
+    }
+  </script>
+</body>
+</html>
