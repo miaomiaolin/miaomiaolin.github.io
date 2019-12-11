@@ -1,0 +1,130 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>录音功能 | recorder.js</title>
+  <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <style type='text/css'>
+    .margin-tp {
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    .margin-none {margin: 0;}
+    .knowledge {
+      margin-top: 30px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="h3 margin-tp">录音功能recorder.js</h1>
+    <p>请将下面一段话进行录音</p>
+
+    <div class="alert alert-primary" role="alert">
+      <p class="margin-none">创新发展、新旧动能转换，是我们能否过坎的关键。
+          要坚持把发展基点放在创新上，发挥我国社会主义制度能够集中力量办大事的制度优势，大力培育创新优势企业，塑造更多依靠创新驱动、更多发挥先发优势的引领型发展。</p>
+    </div>
+
+    <div class="margin-tp">
+      <button type="button" class="btn btn-primary" onclick="startRecording(this);">开始录音</button>
+      <button type="button" class="btn btn-secondary" disabled onclick="stopRecording(this);">停止录音</button>
+    </div>
+
+    <p class="h5">设备状态</p>
+    <pre id="log"></pre>
+
+    <p class="h5">录音状态</p>
+    <pre id="status"></pre>
+
+    <p class="h5">您的录音</p>
+    <div id="recordingslist"></div>
+
+    <div class="alert alert-light knowledge" role="alert">
+      <p>一、关于录音功能浏览器的支持：只经过我粗糙的测试</p>
+      <p>1、pc端：支持谷歌和火狐（测试浏览器：谷歌、火狐、IE）</p>
+      <p>2、移动端：支持火狐以及。。。微信自带浏览器<br>（测试浏览器：火狐、IE、微信自带浏览器、Safari、搜狗、QQ浏览器、UC浏览器，IE和Safari能录音无法播放）</p>
+      <p>二、小知识点关于audio隐藏下载</p>
+      <p>1、原生自带下载按钮隐藏 controlsList="nodownload"</p>
+      <p>2、右击音频下载隐藏 oncontextmenu="return false"</p>
+      <p>3、小知识点样例音频</p>
+      <audio controls="controls" src="http://www.w3school.com.cn/i/song.mp3" controlsList="nodownload" oncontextmenu="return false"></audio>
+      
+    </div>
+    
+  </div>
+
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+  var audio_context;
+  var recorder, fillUrl;
+
+  function startUserMedia(stream) {
+    var input = audio_context.createMediaStreamSource(stream);
+    $('#log').append('<p class="margin-none">麦克风已连接</p>')
+    
+    recorder = new Recorder(input);
+    $('#log').append('<p class="margin-none">录音准备就绪</p>')
+  }
+  // 开始录音
+  function startRecording(button) {
+    recorder && recorder.record();
+    button.disabled = true;
+    button.nextElementSibling.disabled = false;
+    $('#recordingslist').empty()
+    $('#status').empty()
+    $('#status').append('<p class="margin-none">录音中...</p>')
+  }
+  // 结束录音
+  function stopRecording(button) {
+    recorder && recorder.stop();
+    button.disabled = true;
+    button.previousElementSibling.disabled = false;
+    $('#status').empty()
+    $('#status').append('<p class="margin-none">停止录音</p>')
+    
+    // create WAV download link using audio data blob
+    createDownloadLink();
+    
+    recorder.clear();
+  }
+  // 创建audio
+  function createDownloadLink() {
+    recorder && recorder.exportWAV(function(blob) {
+      fillUrl = URL.createObjectURL(blob); // 语音文件的URL
+      var div = document.createElement('div');
+      var audio = document.createElement('audio');
+      
+      audio.controls = true;
+      audio.src = fillUrl;
+      div.appendChild(audio);
+      recordingslist.appendChild(div);
+    });
+  }
+  // 初始化
+  window.onload = function init() {
+    try {
+      // webkit shim
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+      window.URL = window.URL || window.webkitURL;
+      
+      audio_context = new AudioContext;
+      $('#log').append('<p class="margin-none">音频环境已建立</p>')
+      $('#log').append('<p class="margin-none">音频设备' + (navigator.getUserMedia ? '可用' : '不可用') + '</p>')
+    } catch (e) {
+      alert('这个浏览器不支持使用麦克风');
+    }
+    
+    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+      $('#log').append('<p>No live audio input: ' + e + '</p>')
+    });
+  };
+  </script>
+
+  <script src="recorder.js"></script>
+</body>
+</html>
