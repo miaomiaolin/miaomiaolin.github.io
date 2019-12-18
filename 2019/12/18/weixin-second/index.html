@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>miaomiaolin的博客</title>
+  <title>微信小程序（2）--云存储 | miaomiaolin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个爱瞎七搭八乱写的前端程序媛博客">
-<meta name="keywords" content="前端,web前端,前端开发,vue,elementUI,html,css,js,javascript,html5,css3,程序员,程序猿,程序媛">
-<meta property="og:type" content="website">
-<meta property="og:title" content="miaomiaolin的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="API上传、下载等：https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/storage/api.html 案例使用 上传图片  123456789101112131415161718192021222324252627282930313233upload: function () &amp;#123;    // 选择图片    w">
+<meta name="keywords" content="微信小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序（2）--云存储">
+<meta property="og:url" content="http://yoursite.com/2019/12/18/weixin-second/index.html">
 <meta property="og:site_name" content="miaomiaolin的博客">
-<meta property="og:description" content="一个爱瞎七搭八乱写的前端程序媛博客">
+<meta property="og:description" content="API上传、下载等：https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/storage/api.html 案例使用 上传图片  123456789101112131415161718192021222324252627282930313233upload: function () &amp;#123;    // 选择图片    w">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-18T10:41:14.572Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="miaomiaolin的博客">
-<meta name="twitter:description" content="一个爱瞎七搭八乱写的前端程序媛博客">
+<meta name="twitter:title" content="微信小程序（2）--云存储">
+<meta name="twitter:description" content="API上传、下载等：https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/storage/api.html 案例使用 上传图片  123456789101112131415161718192021222324252627282930313233upload: function () &amp;#123;    // 选择图片    w">
   
     <link rel="alternative" href="/atom.xml" title="miaomiaolin的博客" type="application/atom+xml">
   
@@ -150,16 +151,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-weixin-second" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-weixin-second" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/18/weixin-second/">微信小程序（2）--云存储</a>
+    <h1 class="article-title" itemprop="name">
+      微信小程序（2）--云存储
     </h1>
   
 
@@ -177,158 +176,14 @@
 <li>上传图片</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">upload: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 选择图片</span></span><br><span class="line">    wx.chooseImage(&#123;</span><br><span class="line">      count: <span class="number">1</span>,</span><br><span class="line">      sizeType: [<span class="string">'original'</span>, <span class="string">'compressed'</span>],</span><br><span class="line">      sourceType: [<span class="string">'album'</span>, <span class="string">'camera'</span>],</span><br><span class="line">      success (res) &#123;</span><br><span class="line">        <span class="comment">// tempFilePath可以作为img标签的src属性显示图片</span></span><br><span class="line">        <span class="keyword">const</span> tempFilePaths = res.tempFilePaths</span><br><span class="line">        <span class="comment">// 云存储上传功能</span></span><br><span class="line">        wx.cloud.uploadFile(&#123;</span><br><span class="line">          <span class="comment">// 指定上传到的云路径</span></span><br><span class="line">          cloudPath: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + <span class="string">'my-photo.png'</span>,</span><br><span class="line">          <span class="comment">// 指定要上传的文件的小程序临时文件路径</span></span><br><span class="line">          filePath: tempFilePaths[<span class="number">0</span>],</span><br><span class="line">          <span class="comment">// 成功回调</span></span><br><span class="line">          success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            db.collection(<span class="string">'image'</span>).add(&#123;</span><br><span class="line">              data: &#123;</span><br><span class="line">                fileID: res.fileID</span><br><span class="line">              &#125;,</span><br><span class="line">              success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(res)</span><br><span class="line">              &#125;,</span><br><span class="line">              fail: <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(err)</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/12/18/weixin-second/#more">more >></a>
-        
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<a id="more"></a>
 
-      
+<ol start="2">
+<li>下载图片</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">download: <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> id = e.target.dataset.fileid</span><br><span class="line">    <span class="comment">// 云存储下载功能</span></span><br><span class="line">    wx.cloud.downloadFile(&#123;</span><br><span class="line">      fileID: id, <span class="comment">// 文件 ID</span></span><br><span class="line">      success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 返回临时文件路径，保存到系统相册</span></span><br><span class="line">        wx.saveImageToPhotosAlbum(&#123;</span><br><span class="line">          filePath: res.tempFilePath, <span class="comment">// 图片文件路径，可以是临时文件路径或永久文件路径，不支持网络图片路径</span></span><br><span class="line">          success: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            wx.showToast(&#123;</span><br><span class="line">              title: <span class="string">'成功'</span>,</span><br><span class="line">              icon: <span class="string">'success'</span>,</span><br><span class="line">              duration: <span class="number">2000</span></span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;,</span><br><span class="line">          fail: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            wx.showToast(&#123;</span><br><span class="line">              title: <span class="string">'失败'</span>,</span><br><span class="line">              icon: <span class="string">'none'</span>,</span><br><span class="line">              duration: <span class="number">2000</span></span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      fail: <span class="built_in">console</span>.error</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/18/weixin-second/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-weixin-first" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/17/weixin-first/">微信小程序（1）--基础认识</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/17/weixin-first/" class="archive-article-date">
-  	<time datetime="2019-12-17T10:41:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><ol>
-<li>网址：<a href="https://mp.weixin.qq.com" target="_blank" rel="noopener">https://mp.weixin.qq.com</a></li>
-<li>步骤：点击右上角的立即注册—选择注册类型为小程序—填写信息重点为主体信息—完成后去开发中的开发设置里获取AppID</li>
-<li>注册时的注意事项：</li>
-</ol>
-<ul>
-<li>每个邮箱注册时只能申请一个小程序</li>
-<li>邮箱不能使用注册过公众平台、开发平台、企业号以及绑定过个人号的邮箱</li>
-<li>信息完善时注意主体填了就不能修改了</li>
-<li>上传企业基本资料时需要签名加盖公章，保证图片清晰度，否则导致审核不通过</li>
-<li>已申请微信公众号的企业可直接在首页点击小程序进入下一步</li>
-</ul>
-<h3 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h3><ol>
-<li>编译功能：可以指定2每次刷新进入的页面</li>
-</ol>
-<h3 id="微信公众号与微信小程序关联"><a href="#微信公众号与微信小程序关联" class="headerlink" title="微信公众号与微信小程序关联"></a>微信公众号与微信小程序关联</h3><ol>
-<li>在公众号中点击小程序管理</li>
-<li>添加小程序APPID进行关联（APPID查找：在小程序后台的设置-开放设置）</li>
-<li>添加成功后，前往微信公众平台助手中确认关联信息</li>
-</ol>
-<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="代码构成"><a href="#代码构成" class="headerlink" title="代码构成"></a>代码构成</h3><ol>
-<li>.json：配置文件，以json格式存储一些配置</li>
-<li>.wxml：模板文件，描述页面结构，相当于HTML</li>
-<li>.wxss：样式文件，调整页面样式，相当于css</li>
-<li>.js：脚本逻辑文件，页面和用户的交互逻辑</li>
-<li>自定义组件：<a href="https://www.jianshu.com/p/c90138314ec8" target="_blank" rel="noopener">https://www.jianshu.com/p/c90138314ec8</a></li>
-</ol>
-<h3 id="配置json文件"><a href="#配置json文件" class="headerlink" title="配置json文件"></a>配置json文件</h3><ol>
-<li>project.config.json：项目配置</li>
-<li>app.json：全局配置</li>
-<li>page.json：页面配置</li>
-</ol>
-<h3 id="点击事件"><a href="#点击事件" class="headerlink" title="点击事件"></a>点击事件</h3><ol>
-<li>按钮自有事件bind和catch</li>
-<li>区别：catch可以阻止冒泡事件</li>
-</ol>
-<h3 id="使用npm包"><a href="#使用npm包" class="headerlink" title="使用npm包"></a>使用npm包</h3><ol>
-<li>初始化：右击小程序文件夹“在终端打开”，执行npm init</li>
-<li>安装需要的包</li>
-<li>点击编辑器的“工具-构建npm”</li>
-<li>点击编辑器“》-详情-使用 npm 模块”</li>
-</ol>
-<h3 id="引入组件库"><a href="#引入组件库" class="headerlink" title="引入组件库"></a>引入组件库</h3><ol>
-<li>npm install安装组件库</li>
-<li>在需要页面的json文件的usingComponents属性中加入对应属性</li>
-<li><a href="https://youzan.github.io/vant-weapp/#/intro" target="_blank" rel="noopener">https://youzan.github.io/vant-weapp/#/intro</a></li>
-</ol>
-<h2 id="云开发"><a href="#云开发" class="headerlink" title="云开发"></a>云开发</h2><h3 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h3><ol>
-<li>云</li>
-</ol>
-<ul>
-<li>获取APPID</li>
-<li>获取openID</li>
-<li>生成分享图</li>
-<li>调用腾讯云SDK</li>
-</ul>
-<ol>
-<li>云数据库</li>
-</ol>
-<ul>
-<li>数据增删改查</li>
-</ul>
-<ol>
-<li>云存储</li>
-</ol>
-<ul>
-<li>管理、上传、下载、分享文件</li>
-</ul>
-<h3 id="开通云开发"><a href="#开通云开发" class="headerlink" title="开通云开发"></a>开通云开发</h3><ol>
-<li>点击云开发按钮</li>
-<li>开通</li>
-<li>调试基础库版本要在2.2.3以上</li>
-</ol>
-<h3 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h3><ol>
-<li>request：<a href="https://github.com/request/request-promise" target="_blank" rel="noopener">https://github.com/request/request-promise</a></li>
-<li>安装：新建云函数–点击此云函数打开终端–安装</li>
-</ol>
 
       
 
@@ -351,16 +206,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/17/weixin-first/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/18/weixin-second/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/17/weixin-first/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信小程序（1）--基础认识</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -380,330 +294,30 @@
 
 
 
-
   
-    <article id="post-i-与-i" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/20/i-与-i/">i++与++i</a>
-    </h1>
   
 
-        
-        <a href="/2019/09/20/i-与-i/" class="archive-article-date">
-  	<time datetime="2019-09-20T08:43:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>概念</li>
-</ol>
-<p>单独运算时i++ = ++i</p>
-<p>区别：在赋值上不同</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> e = a++</span><br><span class="line"><span class="built_in">console</span>.log(e, a) <span class="comment">// e = 1; a = 2</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> f = ++b</span><br><span class="line"><span class="built_in">console</span>.log(f, b) <span class="comment">// f = 2; b = 2</span></span><br></pre></td></tr></table></figure>
-
-<p>两者的不同在于e是先拿到a的值，再让a去加1；f则是先让b去加1，再去拿新的b的值</p>
-        
-          <a class="article-more-a" href="/2019/09/20/i-与-i/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/20/i-与-i/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-N个js优化方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/20/N个js优化方法/">N个js优化方法</a>
-    </h1>
   
 
-        
-        <a href="/2019/09/20/N个js优化方法/" class="archive-article-date">
-  	<time datetime="2019-09-20T08:37:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-三元操作符"><a href="#1-三元操作符" class="headerlink" title="1.三元操作符"></a>1.三元操作符</h2><p>当想写if…else语句时，使用三元操作符来代替。</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; const x = 20;let answer;if (x &gt; 10) &#123;</span><br><span class="line">&gt;     answer = &apos;is greater&apos;;</span><br><span class="line">&gt; &#125; else &#123;</span><br><span class="line">&gt;     answer = &apos;is lesser&apos;;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>简写：<code>const answer = x &gt; 10 ? &#39;is greater&#39; : &#39;is lesser&#39;;</code></p>
-<p>也可以嵌套if语句：<code>const big = x &gt; 10 ? &quot; greater 10&quot; : x</code></p>
-<p>多条件格式：<code>const big = x &gt; 10 ? 1 : (x &lt; 0 ? 2 : 3)</code></p>
-        
-          <a class="article-more-a" href="/2019/09/20/N个js优化方法/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/20/N个js优化方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-http-base" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/04/http-base/">本地服务器</a>
-    </h1>
   
 
-        
-        <a href="/2018/12/04/http-base/" class="archive-article-date">
-  	<time datetime="2018-12-04T10:09:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="本地服务器"><a href="#本地服务器" class="headerlink" title="本地服务器"></a>本地服务器</h1><h2 id="一、HTTP知识点"><a href="#一、HTTP知识点" class="headerlink" title="一、HTTP知识点"></a>一、HTTP知识点</h2><h3 id="1-三次握手"><a href="#1-三次握手" class="headerlink" title="1. 三次握手"></a>1. 三次握手</h3><ul>
-<li>第一次，客户端发送一些数据到 server 端，<code>要求建立连接</code></li>
-<li>第二次，server 端收到，然后发送一些数据回去，表明<code>可以建立连接</code></li>
-<li>第三次，客户端收到并检查返回的信息，若信息正确，再发送数据到 server 端，告知建立<code>连接成功</code></li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/12/04/http-base/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据交互</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/04/http-base/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-git-base" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/04/git-base/">常用git命令</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/04/git-base/" class="archive-article-date">
-  	<time datetime="2018-05-04T04:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、公钥和私钥"><a href="#一、公钥和私钥" class="headerlink" title="一、公钥和私钥"></a>一、公钥和私钥</h2><h3 id="1-直接找寻公钥"><a href="#1-直接找寻公钥" class="headerlink" title="1. 直接找寻公钥"></a>1. 直接找寻公钥</h3><p>​    <code>cat ~/.ssh/id_rsa.pub</code></p>
-<h3 id="2-存放公钥、私钥的地址"><a href="#2-存放公钥、私钥的地址" class="headerlink" title="2. 存放公钥、私钥的地址"></a>2. 存放公钥、私钥的地址</h3>
-        
-          <a class="article-more-a" href="/2018/05/04/git-base/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/04/git-base/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2019/12/18/weixin-second/",
+  owner: 'miaomiaolin',
+  repo: 'miaomiaolin.github.io',
+  oauth: {
+    client_id: '3931f51019c6daf04dca',
+    client_secret: 'c673c3ed62175f841428a7c03e0aa3bfa9887b9d',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -726,8 +340,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
