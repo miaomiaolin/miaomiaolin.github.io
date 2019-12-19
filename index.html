@@ -152,6 +152,162 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-weixin-third" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/19/weixin-third/">微信小程序（3）--云函数</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/19/weixin-third/" class="archive-article-date">
+  	<time datetime="2019-12-19T10:40:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ol>
+<li>云函数添加方法：在云函数文件夹上点击右键选择“新建nodejs云函数”</li>
+<li>关于wx-server-sdk错误</li>
+</ol>
+<ul>
+<li>开始时报错，问是否安装服务端SDK，点是即可</li>
+<li>运行时报错，在云函数文件夹上点击右键，点击在“终端打开”，在终端里输入对应的安装命令“npm install –save wx-server-sdk@latest”</li>
+</ul>
+<ol>
+<li>调用云函数格式</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wx.cloud.callFunction(&#123;</span><br><span class="line">    name: &apos;sum&apos;, // 当前要调用的云函数名称</span><br><span class="line">    data: &#123;</span><br><span class="line">        a: 2,</span><br><span class="line">        b: 3</span><br><span class="line">    &#125; // data是向云函数传递参数使用，当前传递了2个</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">    </span><br><span class="line">&#125;).catch(err =&gt; &#123;</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>==注意：每次编写完云函数请在当前云函数文件夹上点击右键，点击在“上传并部署：云端安装依赖”==</p>
+</li>
+<li><p>发送请求方式对比</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>小程序端</th>
+<th>云函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>发送方式</td>
+<td>wx.request()</td>
+<td>第三方库(request,got等)</td>
+</tr>
+<tr>
+<td>协议支持</td>
+<td>只支持HTTPS</td>
+<td>根据第三方库决定</td>
+</tr>
+<tr>
+<td>是否备案</td>
+<td>ICP备案</td>
+<td>可不备案</td>
+</tr>
+<tr>
+<td>域名个数限制</td>
+<td>20</td>
+<td>无</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><ol>
+<li>求和函数sum()</li>
+</ol>
+<p>云函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 云函数入口函数</span><br><span class="line">exports.main = async (event, context) =&gt; &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    sum: event.a + event.b</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sum: function () &#123;</span><br><span class="line">    wx.cloud.callFunction(&#123;</span><br><span class="line">      name: &apos;sum&apos;, // 当前要调用的云函数名称</span><br><span class="line">      data: &#123;</span><br><span class="line">          a: 2,</span><br><span class="line">          b: 3</span><br><span class="line">      &#125; // data是向云函数传递参数使用，当前传递了2个</span><br><span class="line">    &#125;).then(res =&gt; &#123;</span><br><span class="line">      console.log(res)</span><br><span class="line">    &#125;).catch(err =&gt; &#123;</span><br><span class="line">      console.log(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>获取当前用户的openID</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">getOpenId: function () &#123;</span><br><span class="line">    // login函数是初始就存在的云函数</span><br><span class="line">    wx.cloud.callFunction(&#123;</span><br><span class="line">      name: &apos;login&apos;</span><br><span class="line">    &#125;).then(res =&gt; &#123;</span><br><span class="line">      console.log(res)</span><br><span class="line">    &#125;).catch(err =&gt; &#123;</span><br><span class="line">      console.log(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>批量删除云数据库数据</li>
+</ol>
+<p>云函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const db = cloud.database();</span><br><span class="line"></span><br><span class="line">// 云函数入口函数</span><br><span class="line">exports.main = async (event, context) =&gt; &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    return await db.collection(&apos;user&apos;).where(&#123;</span><br><span class="line">      name: &apos;jack&apos;</span><br><span class="line">    &#125;).remove();</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    console.log(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">batchDelete: function () &#123;</span><br><span class="line">    wx.cloud.callFunction(&#123;</span><br><span class="line">      name: &apos;batchDelete&apos;</span><br><span class="line">    &#125;).then(res =&gt; &#123;</span><br><span class="line">      console.log(res)</span><br><span class="line">    &#125;).catch(err =&gt; &#123;</span><br><span class="line">      console.log(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>使用接口</li>
+</ol>
+<ul>
+<li>request库：<a href="https://github.com/request/request-promise" target="_blank" rel="noopener">https://github.com/request/request-promise</a></li>
+<li>在当前云函数（例如movielist）右击打开终端：依次执行request库的2个安装</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save request</span><br><span class="line">npm install --save request-promise</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>云函数编写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 云函数入口文件</span><br><span class="line">const cloud = require(&apos;wx-server-sdk&apos;)</span><br><span class="line"></span><br><span class="line">cloud.init()</span><br><span class="line">const rp = require(&apos;request-promise&apos;)</span><br><span class="line"></span><br><span class="line">// 云函数入口函数</span><br><span class="line">exports.main = async (event, context) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  return rp(`https://youapi.com`)</span><br><span class="line">    .then(function (res) &#123;</span><br><span class="line">      return res</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(function (err) &#123;</span><br><span class="line">      console.err(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/19/weixin-third/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-weixin-second" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -797,11 +953,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">js</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">js</a>
               </li>
              
               <li class="article-tag-list-item">
