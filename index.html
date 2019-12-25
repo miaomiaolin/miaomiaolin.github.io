@@ -152,6 +152,141 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-weixin-fourth" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/20/weixin-fourth/">微信小程序（4）--云数据库</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/20/weixin-fourth/" class="archive-article-date">
+  	<time datetime="2019-12-20T10:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>定义：云开发提高了一个json数据库，提供2GB免费存储空间</p>
+<table>
+<thead>
+<tr>
+<th>关系型数据库</th>
+<th>文档型数据库</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据库 database</td>
+<td>数据库 database</td>
+</tr>
+<tr>
+<td>表 table</td>
+<td>集合 collection</td>
+</tr>
+<tr>
+<td>行 row</td>
+<td>记录 record / doc</td>
+</tr>
+<tr>
+<td>列 column</td>
+<td>字段 field</td>
+</tr>
+</tbody></table>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li><p>String：字符串</p>
+</li>
+<li><p>Number：数字</p>
+</li>
+<li><p>Object：对象</p>
+</li>
+<li><p>Array：数组</p>
+</li>
+<li><p>Bool：布尔值</p>
+</li>
+<li><p>GeoPoint：地理位置</p>
+</li>
+<li><p>Date：时间</p>
+</li>
+<li><p>Null</p>
+</li>
+</ul>
+<p>###权限</p>
+<ul>
+<li><p>仅创建者可写，所有人可读：适合文章</p>
+</li>
+<li><p>仅创建者可读：适合私密相册</p>
+</li>
+<li><p>仅管理端可写：适合商品信息</p>
+</li>
+<li><p>仅管理端可读写：适合后台敏感数据</p>
+</li>
+</ul>
+<p>###数据格式</p>
+<p>格式1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">db.collection(&apos;user&apos;).add(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    name: &apos;heidi&apos;,</span><br><span class="line">    age: 20</span><br><span class="line">  &#125;,</span><br><span class="line">  success: res =&gt; &#123;</span><br><span class="line">    console.log(res)</span><br><span class="line">  &#125;,</span><br><span class="line">  fail: err =&gt; &#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>格式2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">db.collection(&apos;user&apos;).add(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    name: &apos;heidi&apos;,</span><br><span class="line">    age: 20</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">  console.log(res)</span><br><span class="line">&#125;).catch(err =&gt; &#123;</span><br><span class="line">  console.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>api地址：<a href="https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/database/" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/database/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/20/weixin-fourth/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-weixin-third" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

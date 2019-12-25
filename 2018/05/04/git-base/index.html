@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="miaomiaolin的博客">
 <meta property="og:description" content="一、公钥和私钥1. 直接找寻公钥​    cat ~/.ssh/id_rsa.pub 2. 存放公钥、私钥的地址">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-11T10:45:08.101Z">
+<meta property="og:updated_time" content="2019-12-25T08:32:34.485Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用git命令">
 <meta name="twitter:description" content="一、公钥和私钥1. 直接找寻公钥​    cat ~/.ssh/id_rsa.pub 2. 存放公钥、私钥的地址">
@@ -204,7 +204,8 @@
 <h3 id="3-删除分支"><a href="#3-删除分支" class="headerlink" title="3. 删除分支"></a>3. 删除分支</h3><p>​    <code>git branch -d/-D</code>     删除本地分支</p>
 <p>​    <code>git branch -r -d origin/分支名</code>     删除本地远程分支</p>
 <p>​    <code>git branch -r -d origin/分支名</code>   <code>git push origin :分支名</code>     两步执行删除远程分支</p>
-<h3 id="4-修改分支名"><a href="#4-修改分支名" class="headerlink" title="4. 修改分支名"></a>4. 修改分支名</h3><p>​    <code>git branch -m 旧分支名 新分支名</code></p>
+<h3 id="4-修改分支名"><a href="#4-修改分支名" class="headerlink" title="4. 修改分支名"></a>4. 修改分支名</h3><p>​    <code>git branch -m 旧分支名 新分支名</code>  非当前分支</p>
+<p>​    <code>git branch -m 新分支名</code>  当前分支</p>
 <h2 id="十一、stash"><a href="#十一、stash" class="headerlink" title="十一、stash"></a>十一、stash</h2><h3 id="1-保存修改（不添加，不提交）"><a href="#1-保存修改（不添加，不提交）" class="headerlink" title="1. 保存修改（不添加，不提交）"></a>1. 保存修改（不添加，不提交）</h3><p>​    <code>git stash</code></p>
 <h3 id="2-查看保存"><a href="#2-查看保存" class="headerlink" title="2. 查看保存"></a>2. 查看保存</h3><p>​    <code>git stash list</code></p>
 <h3 id="3-恢复保存"><a href="#3-恢复保存" class="headerlink" title="3. 恢复保存"></a>3. 恢复保存</h3><p>​    <code>git stash pop</code></p>
