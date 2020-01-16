@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | miaomiaolin的博客</title>
+  <title>音频任务踩坑 | miaomiaolin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个爱瞎七搭八乱写的前端程序媛博客">
-<meta name="keywords" content="前端,web前端,前端开发,vue,elementUI,html,css,js,javascript,html5,css3,程序员,程序猿,程序媛">
-<meta property="og:type" content="website">
-<meta property="og:title" content="miaomiaolin的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="音频控件：InnerAudioContext 获取音频全部时间  12345678var timer = setInterval(() =&amp;gt; &amp;#123;  if (audioCtx.duration) &amp;#123;    clearInterval(timer)    this.setData(&amp;#123;      wavAllTime: this.toTime(audioCtx.dur">
+<meta name="keywords" content="微信小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="音频任务踩坑">
+<meta property="og:url" content="http://yoursite.com/2020/01/16/音频任务踩坑/index.html">
 <meta property="og:site_name" content="miaomiaolin的博客">
-<meta property="og:description" content="一个爱瞎七搭八乱写的前端程序媛博客">
+<meta property="og:description" content="音频控件：InnerAudioContext 获取音频全部时间  12345678var timer = setInterval(() =&amp;gt; &amp;#123;  if (audioCtx.duration) &amp;#123;    clearInterval(timer)    this.setData(&amp;#123;      wavAllTime: this.toTime(audioCtx.dur">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-16T11:17:30.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="miaomiaolin的博客">
-<meta name="twitter:description" content="一个爱瞎七搭八乱写的前端程序媛博客">
+<meta name="twitter:title" content="音频任务踩坑">
+<meta name="twitter:description" content="音频控件：InnerAudioContext 获取音频全部时间  12345678var timer = setInterval(() =&amp;gt; &amp;#123;  if (audioCtx.duration) &amp;#123;    clearInterval(timer)    this.setData(&amp;#123;      wavAllTime: this.toTime(audioCtx.dur">
   
     <link rel="alternative" href="/atom.xml" title="miaomiaolin的博客" type="application/atom+xml">
   
@@ -150,36 +151,77 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-音频任务踩坑" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      音频任务踩坑
+    </h1>
+  
+
+        
+        <a href="/2020/01/16/音频任务踩坑/" class="archive-article-date">
+  	<time datetime="2020-01-16T10:40:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-16</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="音频控件：InnerAudioContext"><a href="#音频控件：InnerAudioContext" class="headerlink" title="音频控件：InnerAudioContext"></a>音频控件：InnerAudioContext</h3><ol>
+<li>获取音频全部时间</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var timer = setInterval(() =&gt; &#123;</span><br><span class="line">  if (audioCtx.duration) &#123;</span><br><span class="line">    clearInterval(timer)</span><br><span class="line">    this.setData(&#123;</span><br><span class="line">      wavAllTime: this.toTime(audioCtx.duration*1000)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, 300)</span><br></pre></td></tr></table></figure>
+
+<p>无法在初始时获得audioCtx.duration时间，有一定的延时性</p>
+<a id="more"></a>
+
+<ol>
+<li>更新音频的当前播放时间</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">audioCtx.onPlay(() =&gt; &#123;</span><br><span class="line">  audioCtx.onTimeUpdate((res) =&gt; &#123;</span><br><span class="line">      vm.setData(&#123;</span><br><span class="line">        wavCurrentTime: vm.toTime(audioCtx.currentTime * 1000)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>onTimeUpdate更新函数的监听，必须放在onPlay函数中才会起作用</p>
+<ol>
+<li>安卓机出现当前时间回跳问题，即在最后一秒的时候返回前一秒的数值，如本应为10秒结束，最后显示却为09秒</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">vm.setData(&#123;</span><br><span class="line">  newTime: audioCtx.currentTime</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">if (vm.data.oldTime &lt; vm.data.newTime) &#123;</span><br><span class="line">  vm.setData(&#123;</span><br><span class="line">    wavCurrentTime: vm.toTime(audioCtx.currentTime * 1000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vm.setData(&#123;</span><br><span class="line">  oldTime: audioCtx.currentTime</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>添加判断，如果后更新的时间比之前时间小，就不让他显示</p>
+<ol>
+<li>音频跳转到指定位置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 前进后退15秒</span><br><span class="line">  audioSeek(event) &#123;</span><br><span class="line">    this.audioPause()</span><br><span class="line">    </span><br><span class="line">    let status = event.currentTarget.dataset.status</span><br><span class="line">    let num = audioCtx.currentTime - event.currentTarget.dataset.num</span><br><span class="line">    let judge = num &gt; audioCtx.duration || num &lt; 0</span><br><span class="line">    </span><br><span class="line">    if (!judge) &#123;</span><br><span class="line">      audioCtx.seek(num)</span><br><span class="line">      audioCtx.onSeeked(() =&gt; &#123;</span><br><span class="line">        this.audioPlay()</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>不添加this.audioPause()和this.audioPlay()的情况下，会出现点击2次才会更新当前时间的情况，原因未明，暂时使用添加this.audioPause()和this.audioPlay()的方法进行修正</p>
+<h3 id="背景音频：getBackgroundAudioManager"><a href="#背景音频：getBackgroundAudioManager" class="headerlink" title="背景音频：getBackgroundAudioManager"></a>背景音频：getBackgroundAudioManager</h3><ol>
+<li>播放暂停后再次播放会回到0的位置继续播放</li>
+</ol>
+<ul>
+<li>原因：每次都给音频的src赋值，导致更新</li>
+<li>解决方法：判断点击音频是否为当前音频</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (backgroundAudioManager.src !== src) &#123;</span><br><span class="line">  backgroundAudioManager.src = src;</span><br><span class="line">  backgroundAudioManager.title = &apos;audio&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>安卓机播放音频时多秒后src被清空</li>
+</ol>
+<ul>
+<li>原因：在ontimeupdate函数中去获取了音频的总时长</li>
+<li>解决办法：在onplay中就赋值总时长</li>
+<li>注意：ontimeupload中绝对绝对不能出现总时长，console打印都不可以</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/20/weixin-fourth/" class="archive-article-date">
-  	<time datetime="2019-12-20T10:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/20/weixin-fourth/">微信小程序（4）--云数据库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,209 +233,122 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/16/音频任务踩坑/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/19/weixin-third/" class="archive-article-date">
-  	<time datetime="2019-12-19T10:40:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-19</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/20/weixin-fourth/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信小程序（4）--云数据库</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/19/weixin-third/">微信小程序（3）--云函数</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/18/weixin-second/" class="archive-article-date">
-  	<time datetime="2019-12-18T10:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/18/weixin-second/">微信小程序（2）--云存储</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/17/weixin-first/" class="archive-article-date">
-  	<time datetime="2019-12-17T10:41:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/17/weixin-first/">微信小程序（1）--基础认识</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/20/i-与-i/" class="archive-article-date">
-  	<time datetime="2019-09-20T08:43:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
-</a>
-        </div>
-    	 
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2020/01/16/音频任务踩坑/",
+  owner: 'miaomiaolin',
+  repo: 'miaomiaolin.github.io',
+  oauth: {
+    client_id: '3931f51019c6daf04dca',
+    client_secret: 'c673c3ed62175f841428a7c03e0aa3bfa9887b9d',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/20/i-与-i/">i++与++i</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/20/N个js优化方法/" class="archive-article-date">
-  	<time datetime="2019-09-20T08:37:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/20/N个js优化方法/">N个js优化方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -416,8 +371,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
