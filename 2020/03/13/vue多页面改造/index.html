@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 微信小程序 | miaomiaolin的博客</title>
+  <title>vue多页面改造 | miaomiaolin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个爱瞎七搭八乱写的前端程序媛博客">
-<meta name="keywords" content="前端,web前端,前端开发,vue,elementUI,html,css,js,javascript,html5,css3,程序员,程序猿,程序媛">
-<meta property="og:type" content="website">
-<meta property="og:title" content="miaomiaolin的博客">
-<meta property="og:url" content="http://yoursite.com/tags/微信小程序/index.html">
+  <meta name="description" content="对文件夹改造 pages底下建立一个个文件夹对应到多页面 文件夹内有自带的app.vue、main.js、router.js、index.html，其中除了APP.vue保留原名，其他的都与文件夹同名，因为webpack会搜索对应名称，index.html直接把最外层的复制了即可 外层原有的单页面app.vue、main.js、router.js、index.html一律删除 App.vue保留原">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue多页面改造">
+<meta property="og:url" content="http://yoursite.com/2020/03/13/vue多页面改造/index.html">
 <meta property="og:site_name" content="miaomiaolin的博客">
-<meta property="og:description" content="一个爱瞎七搭八乱写的前端程序媛博客">
+<meta property="og:description" content="对文件夹改造 pages底下建立一个个文件夹对应到多页面 文件夹内有自带的app.vue、main.js、router.js、index.html，其中除了APP.vue保留原名，其他的都与文件夹同名，因为webpack会搜索对应名称，index.html直接把最外层的复制了即可 外层原有的单页面app.vue、main.js、router.js、index.html一律删除 App.vue保留原">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-13T08:51:48.437Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="miaomiaolin的博客">
-<meta name="twitter:description" content="一个爱瞎七搭八乱写的前端程序媛博客">
+<meta name="twitter:title" content="vue多页面改造">
+<meta name="twitter:description" content="对文件夹改造 pages底下建立一个个文件夹对应到多页面 文件夹内有自带的app.vue、main.js、router.js、index.html，其中除了APP.vue保留原名，其他的都与文件夹同名，因为webpack会搜索对应名称，index.html直接把最外层的复制了即可 外层原有的单页面app.vue、main.js、router.js、index.html一律删除 App.vue保留原">
   
     <link rel="alternative" href="/atom.xml" title="miaomiaolin的博客" type="application/atom+xml">
   
@@ -150,222 +151,198 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-vue多页面改造" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/16/音频任务踩坑/" class="archive-article-date">
-  	<time datetime="2020-01-16T10:40:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/16/音频任务踩坑/">音频任务踩坑</a>
+    <h1 class="article-title" itemprop="name">
+      vue多页面改造
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/03/13/vue多页面改造/" class="archive-article-date">
+  	<time datetime="2020-03-13T08:50:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="对文件夹改造"><a href="#对文件夹改造" class="headerlink" title="对文件夹改造"></a>对文件夹改造</h3><ol>
+<li>pages底下建立一个个文件夹对应到多页面</li>
+<li>文件夹内有自带的app.vue、main.js、router.js、index.html，其中除了APP.vue保留原名，其他的都与文件夹同名，因为webpack会搜索对应名称，index.html直接把最外层的复制了即可</li>
+<li>外层原有的单页面app.vue、main.js、router.js、index.html一律删除</li>
+<li>App.vue保留原名的原因：在main.js中引入App的过程中，改名会找不到，具体原因还未详查</li>
+<li>编译后默认是打开index文件夹的，如果没有这个名字，应该就是找不到（ps未测试，只是猜测）</li>
+</ol>
+<h3 id="webpack打包的改造"><a href="#webpack打包的改造" class="headerlink" title="webpack打包的改造"></a>webpack打包的改造</h3><ol>
+<li>utils.js(文末直接黏贴代码)</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> glob = <span class="built_in">require</span>(<span class="string">'glob'</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>);</span><br><span class="line"><span class="keyword">const</span> PAGE_PATH = path.resolve(__dirname, <span class="string">'../src/pages'</span>);</span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"><span class="comment">// 这段代码的意思是根据我们`pages`下的文件夹定义webpack的入口：</span></span><br><span class="line">exports.entries = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> entryFiles = glob.sync(PAGE_PATH + <span class="string">'/*/*.js'</span>)</span><br><span class="line">  <span class="keyword">let</span> map = &#123;&#125;</span><br><span class="line">  entryFiles.forEach(<span class="function">(<span class="params">filePath</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> filename = filePath.substring(filePath.lastIndexOf(<span class="string">'\/'</span>) + <span class="number">1</span>, filePath.lastIndexOf(<span class="string">'.'</span>))</span><br><span class="line">      map[filename] = filePath</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> map</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这段代码是将生成的html，加载对应的资源文件</span></span><br><span class="line">exports.htmlPlugin = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> entryHtml = glob.sync(PAGE_PATH + <span class="string">'/*/*.html'</span>)</span><br><span class="line">  <span class="keyword">let</span> arr = []</span><br><span class="line">  entryHtml.forEach(<span class="function">(<span class="params">filePath</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> filename = filePath.substring(filePath.lastIndexOf(<span class="string">'\/'</span>) + <span class="number">1</span>, filePath.lastIndexOf(<span class="string">'.'</span>))</span><br><span class="line">      <span class="keyword">let</span> conf = &#123;</span><br><span class="line">          <span class="comment">// 模板来源</span></span><br><span class="line">          template: filePath,</span><br><span class="line">          <span class="comment">// 文件名称</span></span><br><span class="line">          filename: filename + <span class="string">'.html'</span>,</span><br><span class="line">          <span class="comment">// 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本</span></span><br><span class="line">          chunks: [<span class="string">'manifest'</span>, <span class="string">'vendor'</span>, filename],</span><br><span class="line">          inject: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">          conf = merge(conf, &#123;</span><br><span class="line">              minify: &#123;</span><br><span class="line">                  removeComments: <span class="literal">true</span>, </span><br><span class="line">                  collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">                  removeAttributeQuotes: <span class="literal">true</span></span><br><span class="line">              &#125;,</span><br><span class="line">              chunksSortMode: <span class="string">'dependency'</span></span><br><span class="line">          &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      arr.push(<span class="keyword">new</span> HtmlWebpackPlugin(conf))</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>webpack.base.conf.js<br><br>把entry的值改为从untils引入的</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// entry: &#123;</span></span><br><span class="line"><span class="comment">//   app: './src/main.js'</span></span><br><span class="line"><span class="comment">// &#125;,</span></span><br><span class="line">entry: utils.entries(),</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>webpack.dev.conf.js：此文件没有改，启动会报错的（填坑有一会儿-||^||-）<br><br>注释部分</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// new HtmlWebpackPlugin(&#123;</span></span><br><span class="line"><span class="comment">//   filename: 'index.html',</span></span><br><span class="line"><span class="comment">//   template: 'index.html',</span></span><br><span class="line"><span class="comment">//   inject: true</span></span><br><span class="line"><span class="comment">// &#125;),</span></span><br></pre></td></tr></table></figure>
+
+<p>修改：在plugins数组后直接拼接</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins: [].concat(utils.htmlPlugin())</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>webpack.prod.conf.js<br><br>注释部分</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// new HtmlWebpackPlugin(&#123;</span></span><br><span class="line"><span class="comment">//   filename: process.env.NODE_ENV === 'testing'</span></span><br><span class="line"><span class="comment">//     ? 'index.html'</span></span><br><span class="line"><span class="comment">//     : config.build.index,</span></span><br><span class="line"><span class="comment">//   template: 'index.html',</span></span><br><span class="line"><span class="comment">//   inject: true,</span></span><br><span class="line"><span class="comment">//   minify: &#123;</span></span><br><span class="line"><span class="comment">//     removeComments: true,</span></span><br><span class="line"><span class="comment">//     collapseWhitespace: true,</span></span><br><span class="line"><span class="comment">//     removeAttributeQuotes: true</span></span><br><span class="line"><span class="comment">//     // more options:</span></span><br><span class="line"><span class="comment">//     // https://github.com/kangax/html-minifier#options-quick-reference</span></span><br><span class="line"><span class="comment">//   &#125;,</span></span><br></pre></td></tr></table></figure>
+
+<p>修改：在plugins数组后直接拼接</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins: [].concat(utils.htmlPlugin())</span><br></pre></td></tr></table></figure>
+
+<h4 id="大致的修改有这些，主要参考文章如下："><a href="#大致的修改有这些，主要参考文章如下：" class="headerlink" title="大致的修改有这些，主要参考文章如下："></a>大致的修改有这些，主要参考文章如下：</h4><ol>
+<li><a href="https://www.jianshu.com/p/454d94499851" target="_blank" rel="noopener">https://www.jianshu.com/p/454d94499851</a></li>
+<li><a href="https://www.cnblogs.com/webhmy/p/10009364.html" target="_blank" rel="noopener">https://www.cnblogs.com/webhmy/p/10009364.html</a></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/20/weixin-fourth/" class="archive-article-date">
-  	<time datetime="2019-12-20T10:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/20/weixin-fourth/">微信小程序（4）--云数据库</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/13/vue多页面改造/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/19/weixin-third/" class="archive-article-date">
-  	<time datetime="2019-12-19T10:40:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-19</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/16/音频任务踩坑/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">音频任务踩坑</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/19/weixin-third/">微信小程序（3）--云函数</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/18/weixin-second/" class="archive-article-date">
-  	<time datetime="2019-12-18T10:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/18/weixin-second/">微信小程序（2）--云存储</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/17/weixin-first/" class="archive-article-date">
-  	<time datetime="2019-12-17T10:41:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/17/weixin-first/">微信小程序（1）--基础认识</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2020/03/13/vue多页面改造/",
+  owner: 'miaomiaolin',
+  repo: 'miaomiaolin.github.io',
+  oauth: {
+    client_id: '3931f51019c6daf04dca',
+    client_secret: 'c673c3ed62175f841428a7c03e0aa3bfa9887b9d',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -388,9 +365,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
