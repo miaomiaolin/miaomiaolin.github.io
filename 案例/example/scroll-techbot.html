@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>触底加载</title>
+</head>
+<body>
+  <div id="app">
+    <section>
+      <p v-for="(item, index) in arr2" :key="index"><span style="margin-right: 1rem; color: blue;">{{ index + 1 }}</span>{{ item.value }}</p>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        arr2: []
+      },
+      computed: {
+        arr1 () {
+          const resArr = []
+          for (let i = 0; i < 100; i++) {
+            resArr.push({value: '我是一段文本啊'})
+          }
+          return resArr
+        }
+      },
+      watch: {
+      mounted () {
+        let vm = this
+        this.arr2 = this.arr1.slice(0, 30)
+        const elem = document.documentElement
+        window.addEventListener('scroll', () => {
+          let scTop = elem.scrollTop
+          let scHeight = elem.scrollHeight
+          let cHeight = elem.clientHeight
+          if (scTop + cHeight === scHeight) {
+            vm.loadNews()
+          }
+        })
+      },
+      methods: {
+        loadNews () {
+          const arr1Len = this.arr1.length
+          const arr2Len = this.arr2.length
+          if (arr1Len > arr2Len) {
+            console.log('in3', this.arr1.slice(arr2Len, arr2Len + 20))
+            this.arr2 = this.arr2.concat(this.arr1.slice(arr2Len, arr2Len + 20))
+          } else {
+            alert('到底了')
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
